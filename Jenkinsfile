@@ -18,5 +18,28 @@ pipeline {
                 }
             }
         }
+        stage('Update Environment') {
+            steps {
+                sh 'sudo apt update'
+                sh 'sudo apt upgrade -y'
+            }
+        }
+        stage('node version') {
+            steps {
+                sh 'node -v'
+            }
+        }
+        stage('npm version') {
+            steps {
+                sh 'npm -v'
+            }
+        }
+        stage('Post-Deployment') {
+            steps {
+                script {
+                    echo 'Deployment completed successfully!'
+                }
+            }
+        }
     }
 }
