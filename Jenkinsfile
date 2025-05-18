@@ -1,5 +1,4 @@
-pipeline 
-{
+pipeline {
     agent any
     stages {
         stage('Print Working Directory') {
@@ -12,5 +11,12 @@ pipeline
                 sh 'ls -l'
             }
         }
+        stage('Getting IP Address') {
+            steps {
+                script {
+                    sh 'ifconfig'
+                }
+            }
         }
+    }
 }
