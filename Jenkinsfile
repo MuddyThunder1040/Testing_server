@@ -6,10 +6,10 @@ pipeline
             steps {
                 sh 'pwd'
             }
+        }
         stage('List Files') {
             steps {
                 sh 'ls -l'
-            }
             }
         }
         }
