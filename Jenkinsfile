@@ -1,9 +1,7 @@
 // Jenkins Pipeline to automate Terraform deployment and capture worker IP
 
 pipeline {
-    agent {
-        
-    }
+    agent any
     stages {
         
         stage('Getting IP Address') { // Captures network configuration to a file
