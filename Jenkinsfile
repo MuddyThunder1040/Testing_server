@@ -14,19 +14,30 @@ pipeline {
         stage('Getting IP Address') {
             steps {
                 script {
-                    sh 'ifconfig'
+                    sh 'ifconfig > worker_ip.txt'
                 }
             }
         }
       
-        stage('node version') {
+        stage('TF INIT') {
             steps {
-                sh 'node -v'
+                sh 'terraform init'
             }
         }
-        stage('npm version') {
+        stage('TF PLAN') {
             steps {
-                sh 'npm -v'
+                sh 'terraform plan'
+            }
+        }
+        stage('TF APPLY') {
+            steps {
+                input message: 'Do you want to apply the changes?', ok: 'yes'
+                sh 'terraform apply -auto-approve'
+            }
+        }
+        stage('TF file show ') {
+            steps {
+                sh 'cat worker_ip.txt'
             }
         }
         stage('Post-Deployment') {
