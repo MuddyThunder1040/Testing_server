@@ -1,19 +1,10 @@
-terraform {
-  required_providers {
-    local = {
-      source  = "hashicorp/local"
-      version = "~> 2.5"
-    }
-  }
-}
-
-provider "local" {}
-
+# This resource writes the content of worker_ip.txt to ip_address.txt
 resource "local_file" "ip_address" {
-  content  = data.local_file.worker_ip.content
-  filename = "${path.module}/ip_address.txt"
+    content  = data.local_file.worker_ip.content
+    filename = "${path.module}/ip_address.txt"
 }
+
+# This data source reads the content of worker_ip.txt
 data "local_file" "worker_ip" {
-  filename = "${path.module}/worker_ip.txt"
-  
+    filename = "${path.module}/worker_ip.txt"
 }
