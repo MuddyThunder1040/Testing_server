@@ -18,12 +18,7 @@ pipeline {
                 }
             }
         }
-        stage('Update Environment') {
-            steps {
-                sh 'apt update'
-                sh 'apt upgrade -y'
-            }
-        }
+      
         stage('node version') {
             steps {
                 sh 'node -v'
