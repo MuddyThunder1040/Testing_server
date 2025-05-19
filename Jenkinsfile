@@ -20,8 +20,8 @@ pipeline {
         }
         stage('Update Environment') {
             steps {
-                sh 'sudo apt update'
-                sh 'sudo apt upgrade -y'
+                sh 'apt update'
+                sh 'apt upgrade -y'
             }
         }
         stage('node version') {
