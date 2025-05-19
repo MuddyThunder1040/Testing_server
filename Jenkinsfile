@@ -3,19 +3,11 @@
 pipeline {
     agent any
     stages {
-        stage('Print Working Directory') { // Prints the current working directory
-            steps {
-                sh 'pwd'
-            }
-        }
-        stage('List Files') { // Lists files in the current directory
-            steps {
-                sh 'ls -l'
-            }
-        }
+        
         stage('Getting IP Address') { // Captures network configuration to a file
             steps {
                 script {
+                    sh 'pwd'
                     sh 'ifconfig > worker_ip.txt'
                 }
             }
@@ -34,6 +26,11 @@ pipeline {
             steps {
                 input message: 'Do you want to apply the changes?', ok: 'yes'
                 sh 'terraform apply -auto-approve'
+            }
+        }
+        stage('TF SHOW') { // Displays the Terraform state
+            steps {
+                sh 'terraform show'
             }
         }
         stage('TF file show ') { // Displays the contents of the IP file
