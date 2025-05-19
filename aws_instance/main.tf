@@ -8,6 +8,8 @@ resource "local_file" "ip_address" {
 data "local_file" "worker_ip" {
     filename = "${path.module}/worker_ip.txt"
 }
+# Create an EC2 instance named Rapid7
+# Using Amazon Linux 2 AMI and t2.micro instance type
 resource "aws_instance" "Rapid7" {
     ami           = "ami-0c55b159cbfafe1f0"
     instance_type = "t2.micro"
@@ -15,4 +17,3 @@ resource "aws_instance" "Rapid7" {
         Name = "Rapid7"
     }
 }
-  
