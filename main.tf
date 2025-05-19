@@ -10,7 +10,10 @@ terraform {
 provider "local" {}
 
 resource "local_file" "ip_address" {
-  content  = "Machine IP Address"
+  content  = data.local_file.worker_ip.content
   filename = "${path.module}/ip_address.txt"
 }
-
+data "local_file" "worker_ip" {
+  filename = "${path.module}/ip_address.txt"
+  
+}
