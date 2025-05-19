@@ -7,9 +7,10 @@ pipeline {
         stage('Getting IP Address') { // Captures network configuration to a file
             steps {
                 script {
-                    dir '/Users/vishnu/Desktop/Testing_server/aws_instance'
-                    sh 'pwd'
-                    sh 'ifconfig > worker_ip.txt'
+                    dir('/Users/vishnu/Desktop/Testing_server/aws_instance') {
+                        sh 'pwd'
+                        sh 'ifconfig > worker_ip.txt'
+                    }
                 }
             }
         }
@@ -18,26 +19,30 @@ pipeline {
                 sh 'terraform init'
             }
         }
-        stage('TF PLAN') { // Shows Terraform execution plan
             steps {
-                dir '/Users/vishnu/Desktop/Testing_server/aws_instance'
-                sh 'terraform plan'
+                dir('/Users/vishnu/Desktop/Testing_server/aws_instance') {
+                    sh 'terraform plan'
+                }
             }
-        }
-        stage('TF APPLY') { // Applies Terraform changes after manual approval
+            }
             steps {
-                dir '/Users/vishnu/Desktop/Testing_server/aws_instance'
-                input message: 'Do you want to apply the changes?', ok: 'yes'
+                dir('/Users/vishnu/Desktop/Testing_server/aws_instance') {
+                    input message: 'Do you want to apply the changes?', ok: 'yes'
+                    sh 'terraform apply -auto-approve'
+                }
+            }
                 sh 'terraform apply -auto-approve'
-            }
-        }
-        stage('TF SHOW') { // Displays the Terraform state
             steps {
-                dir '/Users/vishnu/Desktop/Testing_server/aws_instance'
-                sh 'terraform show'
+                dir('/Users/vishnu/Desktop/Testing_server/aws_instance') {
+                    sh 'terraform show'
+                }
             }
-        }
-        stage('TF file show ') { // Displays the contents of the IP file
+                dir '/Users/vishnu/Desktop/Testing_server/aws_instance'
+            steps {
+                dir('/Users/vishnu/Desktop/Testing_server/aws_instance') {
+                    sh 'cat worker_ip.txt'
+                }
+            }
             steps {
                 dir '/Users/vishnu/Desktop/Testing_server/aws_instance'
                 sh 'cat worker_ip.txt'
