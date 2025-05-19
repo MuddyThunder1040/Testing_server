@@ -14,6 +14,6 @@ resource "local_file" "ip_address" {
   filename = "${path.module}/ip_address.txt"
 }
 data "local_file" "worker_ip" {
-  filename = "${path.module}/ip_address.txt"
+  filename = "${path.module}/worker_ip.txt"
   
 }
