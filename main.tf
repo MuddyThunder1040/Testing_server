@@ -1,9 +1,16 @@
-resource "local_file" "CreateFile" {
-  filename = "example.txt"
-content  = data.IP_Information.Dell_Worker_IP.filename
-  
+terraform {
+  required_providers {
+    local = {
+      source  = "hashicorp/local"
+      version = "~> 2.5"
+    }
+  }
 }
 
-data "IP_Information" "Dell_Worker_IP" {
-filename = "worker_ip.txt"
+provider "local" {}
+
+resource "local_file" "ip_address" {
+  content  = "Machine IP Address"
+  filename = "${path.module}/ip_address.txt"
 }
+
