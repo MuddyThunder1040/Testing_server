@@ -8,3 +8,12 @@ resource "local_file" "ip_address" {
 data "local_file" "worker_ip" {
     filename = "${path.module}/worker_ip.txt"
 }
+
+resource "aws_instance" "Rapid7" {
+  ami           = "ami-0c55b159cbfafe1f0"
+  instance_type = "t2.micro"
+  tags = {
+    Name = "Rapid7"
+  }
+  
+}
