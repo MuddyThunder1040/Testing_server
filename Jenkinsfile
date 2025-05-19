@@ -4,7 +4,7 @@ pipeline {
     agent any
 
     environment {
-        WORK_DIR = '/Users/vishnu/Desktop/Testing_server/aws_instance'
+        WORK_DIR = 'aws_instance' // Relative path to your Terraform config
     }
 
     stages {
