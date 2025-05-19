@@ -2,57 +2,65 @@
 
 pipeline {
     agent any
+
+    environment {
+        WORK_DIR = '/Users/vishnu/Desktop/Testing_server/aws_instance'
+    }
+
     stages {
-        
-        stage('Getting IP Address') { // Captures network configuration to a file
+        stage('Getting IP Address') {
             steps {
-                script {
-                    dir('/Users/vishnu/Desktop/Testing_server/aws_instance') {
-                        sh 'pwd'
-                        sh 'ifconfig > worker_ip.txt'
-                    }
+                dir("${env.WORK_DIR}") {
+                    sh 'pwd'
+                    sh 'ifconfig > worker_ip.txt'
                 }
             }
         }
-        stage('TF INIT') { // Initializes Terraform
+
+        stage('TF INIT') {
             steps {
-                sh 'terraform init'
+                dir("${env.WORK_DIR}") {
+                    sh 'terraform init'
+                }
             }
         }
+
+        stage('TF PLAN') {
             steps {
-                dir('/Users/vishnu/Desktop/Testing_server/aws_instance') {
+                dir("${env.WORK_DIR}") {
                     sh 'terraform plan'
                 }
             }
-            }
+        }
+
+        stage('TF APPLY') {
             steps {
-                dir('/Users/vishnu/Desktop/Testing_server/aws_instance') {
+                dir("${env.WORK_DIR}") {
                     input message: 'Do you want to apply the changes?', ok: 'yes'
                     sh 'terraform apply -auto-approve'
                 }
             }
-                sh 'terraform apply -auto-approve'
+        }
+
+        stage('TF SHOW') {
             steps {
-                dir('/Users/vishnu/Desktop/Testing_server/aws_instance') {
+                dir("${env.WORK_DIR}") {
                     sh 'terraform show'
                 }
             }
-                dir '/Users/vishnu/Desktop/Testing_server/aws_instance'
+        }
+
+        stage('Show IP File') {
             steps {
-                dir('/Users/vishnu/Desktop/Testing_server/aws_instance') {
+                dir("${env.WORK_DIR}") {
                     sh 'cat worker_ip.txt'
                 }
             }
-            steps {
-                dir '/Users/vishnu/Desktop/Testing_server/aws_instance'
-                sh 'cat worker_ip.txt'
-            }
         }
-        stage('Post-Deployment') { // Final message after deployment
+
+        stage('Post-Deployment') {
             steps {
-                script {
-                    echo 'Deployment completed successfully!'
-                }
+                echo '✅ Deployment completed successfully!'
             }
         }
     }
