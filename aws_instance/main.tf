@@ -17,3 +17,32 @@ resource "aws_instance" "Rapid7" {
         Name = "Rapid7"
     }
 }
+
+resource "aws_s3_bucket" "Dell_bucket" {
+    bucket = "dell-bucket-123456789"
+     versioning {
+       enabled =  true
+    }
+    lifecycle {
+        prevent_destroy = true
+    }
+    tags = {
+        Name = "Dell_bucket"
+    }
+}
+
+
+resource "aws_dynamodb_table" "tf_locks" {
+    name         = "tf_locks"
+    billing_mode = "PAY_PER_REQUEST"
+    attribute {
+        name = "LockID"
+        type = "S"
+    }
+    hash_key = "LockID"
+    tags = {
+        Name = "tf_locks"
+    }
+  
+}
+
