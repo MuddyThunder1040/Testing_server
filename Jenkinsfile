@@ -20,7 +20,7 @@ pipeline {
         stage('TF INIT') {
             steps {
                 dir("${env.WORK_DIR}") {
-                    sh 'terraform init -migrate-state'
+                    sh 'terraform init'
                 }
             }
         }
