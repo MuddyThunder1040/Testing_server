@@ -18,7 +18,7 @@ resource "aws_instance" "Rapid7" {
     }
 }
 
-resource "aws_s3_bucket" "Dell_bucket" {
+resource "aws_s3_bucket" "randbuck" {
     bucket = "gk6v3te3d4"
      versioning {
        enabled =  true
@@ -27,7 +27,7 @@ resource "aws_s3_bucket" "Dell_bucket" {
         prevent_destroy = true
     }
     tags = {
-        Name = "Dell_bucket"
+        Name = "randbuck"
     }
 }
 
