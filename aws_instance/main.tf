@@ -1,33 +1,33 @@
 # This resource writes the content of worker_ip.txt to ip_address.txt
 resource "local_file" "ip_address" {
     content  = data.local_file.worker_ip.content
-    filename = "${path.module}/ip_address.txt"
+    filename = var.ip_address_filename
 }
 
 # This data source reads the content of worker_ip.txt
 data "local_file" "worker_ip" {
-    filename = "${path.module}/worker_ip.txt"
+    filename = var.worker_ip_filename
 }
+
 # Create an EC2 instance named Rapid7
-# Using Amazon Linux 2 AMI and t2.micro instance type
 resource "aws_instance" "Rapid7" {
-    ami           = "ami-0c55b159cbfafe1f0"
-    instance_type = "t2.micro"
+    ami           = var.ec2_ami
+    instance_type = var.ec2_instance_type
     tags = {
-        Name = "Rapid7"
+        Name = var.ec2_name_tag
     }
 }
 
 resource "aws_s3_bucket" "randbuck" {
-    bucket = "gk6v3te3d4"
-     versioning {
-       enabled =  true
+    bucket = var.s3_bucket_name
+    versioning {
+        enabled = var.s3_bucket_versioning
     }
     lifecycle {
-        prevent_destroy = true
+        prevent_destroy = var.s3_bucket_prevent_destroy
     }
     tags = {
-        Name = "randbuck"
+        Name = var.s3_bucket_name_tag
     }
 }
 
