@@ -1,4 +1,4 @@
 resource "aws_instance" "MuddyThunder" {
-   ami = "ami-0c55b159cbfafe1f0"
-   instance_type = "t2.micro"
+  ami           = var.muddythunder_ami
+  instance_type = var.muddythunder_instance_type
 }
