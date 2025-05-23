@@ -1,0 +1,8 @@
+This is some random text for testing purposes.
+You can replace this with any content you like.
+12345!@#$%
+The quick brown fox jumps over the lazy dog.
+Here is an additional line for testing file modifications.
+Another example line with numbers: 9876543210.
+Special characters: ~`[]{}|;:'",.<>/? 
+End of file content.
